@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <link rel="icon" type="image/png" href="img/carinha.jpg">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/playlist1.css">
     <title>'-'</title>
 </head>
 <body>
@@ -19,10 +20,28 @@
             </div>
         </nav>
     </header>
-    <main>
+    <main class="card">
+        <div class="content">
+            <div class="container">
+                <h1>Minhas Músicas Mais Tocadas no Spotify</h1>
+                <ul id="tracksList"></ul>
+            </div>
+            
+            <div class="container">
+                <h1>Meus Artistas Mais Ouvidos no Spotify</h1>
+                <ul id="artistsList"></ul>
+            </div>
+        </div>
+
+        <div>
+            <div id="playlistEmbed">
+                <h1>Minha Playlist no Spotify</h1>
+            </div>
+        </div>
     </main>
     <footer>
         <figure><a href="https://www.instagram.com/jpeeeedrs/" target="_blank"><img src="img/instagram.jpeg" alt="instagram"></a></figure>
     </footer>
+    <script src="js/tracks_and_artists.js"></script>
 </body>
 </html>
