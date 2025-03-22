@@ -4,11 +4,11 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
     margin: 0;
 }
 
-.card {
+
+#card {
     flex: 1;;
     max-width: 100%;
 
@@ -18,14 +18,14 @@ body {
     overflow:hidden;
 }
 
-.content {
+#content {
     display: flex;
     flex-direction: row;
     align-items: center;
     gap: 20px;
 }
 
-.container {
+#container {
     text-align: center;
     background-color: #ff4073;
     padding: 20px;
@@ -33,12 +33,11 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     border: #000 solid 5px;
     font-family: comic sans ms;
-    max-width: 800px;
-    width: 100%;
 }
 
 h1 {
     margin-bottom: 20px;
+    font-family: comic sans ms;
 }
 
 ul#tracksList,
@@ -63,7 +62,6 @@ img {
     width: 75px;
     height: 75px;
     border-radius: 5px;
-    margin-right: 10px;
 }
 
 .track-info,

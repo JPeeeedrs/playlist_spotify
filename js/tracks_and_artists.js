@@ -1,4 +1,4 @@
-const token = 'BQBhGDJcjHOZOOtzvJHECHlJk4zisb7T8_D7TNM11hurKjiloNbqYuymt0AagA2ZcdYhUC3S-lkWriUCJiU85X6OPqwF8zWAEtfE9gNKx0YcCv89ETCg3VYsawcGVXHKbu-0mMArQxCsljmrVqWGdHkkliMr2quHtZh9-DeYlSu1NakgfD8w8M1oa-OTKvhs_w6vlc3RchyVCG3SjI-Z46kxPiEL0UKWb5iGEDljcGUH5a9C3kyrp85uHbrzyj19wrDaeJ7EwJuyY3VA11ZZjmy4MgpIWKOAP4atwZw7K0mIyP3xUt37z0Mnq4VS';
+const token = 'BQD873uywfd4g4IfX1cIH8BBsaWcDwgKIho_vg5m1evHzclMFPWQnuI9RtigpJslZMoLKoIgqqIO6autLPUEqTK8lXnMSjoW7TzYeGNAHe6Ym5t-qaKqzUyinCNtP84PZRi8ge6ofYLD7AjX2zLtsEJb3rFJUkTtN3CaR1KO_SRMSDkV2gqT1t7T13OxWKM77TPlmpjgoEZpb0_du7p-WKcj0r3Wuz13rezVuHpYX99o69uhZXWEHcJA44niQ-E';
 
 async function fetchWebApi(endpoint, method, body) {
   const res = await fetch(`https://api.spotify.com/${endpoint}`, {
@@ -12,11 +12,12 @@ async function fetchWebApi(endpoint, method, body) {
 }
 
 async function getTopTracks() {
-  return (await fetchWebApi('v1/me/top/tracks?time_range=long_term&limit=5', 'GET')).items;
+  const response = await fetchWebApi('v1/me/top/tracks?time_range=short_term&limit=10', 'GET');
+  return response.items;
 }
 
 async function getTopArtists() {
-  return (await fetchWebApi('v1/me/top/artists?time_range=long_term&limit=5', 'GET')).items;
+  return (await fetchWebApi('v1/me/top/artists?time_range=short_term&limit=10', 'GET')).items;
 }
 
 function formatDuration(durationMs) {
@@ -94,7 +95,7 @@ function displayTopArtists(artists) {
 }
 
 function renderPlaylistEmbed() {
-  const playlistId = '5lmWAd3SwcGALUnMjseJfX'; // ID da playlist
+  const playlistId = '5lmWAd3SwcGALUnMjseJfX';
   const playlistEmbed = document.getElementById('playlistEmbed');
 
   const iframe = document.createElement('iframe');
@@ -117,7 +118,7 @@ async function main() {
 
     displayTopTracks(topTracks);
     displayTopArtists(topArtists);
-    renderPlaylistEmbed(); // Renderiza o embed da playlist
+    renderPlaylistEmbed();
   } catch (error) {
     console.error('Erro ao buscar dados:', error);
     const tracksList = document.getElementById('tracksList');
