@@ -1,25 +1,3 @@
-const token = 'BQD873uywfd4g4IfX1cIH8BBsaWcDwgKIho_vg5m1evHzclMFPWQnuI9RtigpJslZMoLKoIgqqIO6autLPUEqTK8lXnMSjoW7TzYeGNAHe6Ym5t-qaKqzUyinCNtP84PZRi8ge6ofYLD7AjX2zLtsEJb3rFJUkTtN3CaR1KO_SRMSDkV2gqT1t7T13OxWKM77TPlmpjgoEZpb0_du7p-WKcj0r3Wuz13rezVuHpYX99o69uhZXWEHcJA44niQ-E';
-
-async function fetchWebApi(endpoint, method, body) {
-  const res = await fetch(`https://api.spotify.com/${endpoint}`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-    method,
-    body: JSON.stringify(body),
-  });
-  return await res.json();
-}
-
-async function getTopTracks() {
-  const response = await fetchWebApi('v1/me/top/tracks?time_range=short_term&limit=10', 'GET');
-  return response.items;
-}
-
-async function getTopArtists() {
-  return (await fetchWebApi('v1/me/top/artists?time_range=short_term&limit=10', 'GET')).items;
-}
-
 function formatDuration(durationMs) {
   const minutes = Math.floor(durationMs / 60000);
   const seconds = ((durationMs % 60000) / 1000).toFixed(0);
@@ -95,12 +73,12 @@ function displayTopArtists(artists) {
 }
 
 function renderPlaylistEmbed() {
-  const playlistId = '5lmWAd3SwcGALUnMjseJfX';
+  const playlistId = '5vEAO1TAta0Llc2BjRYPfu';
   const playlistEmbed = document.getElementById('playlistEmbed');
 
   const iframe = document.createElement('iframe');
   iframe.title = 'Spotify Embed: Recommendation Playlist';
-  iframe.src = `https://open.spotify.com/embed/playlist/${playlistId}?utm_source=generator&theme=0`;
+  iframe.src = `https://open.spotify.com/embed/playlist/${playlistId}`;
   iframe.width = '100%';
   iframe.height = '360px';
   iframe.style.minHeight = '360px';
@@ -111,20 +89,23 @@ function renderPlaylistEmbed() {
   playlistEmbed.appendChild(iframe);
 }
 
+async function fetchTopData() {
+  const res = await fetch('http://localhost:3000/top-data');
+  const data = await res.json()
+  return data;
+}
+
 async function main() {
   try {
-    const topTracks = await getTopTracks();
-    const topArtists = await getTopArtists();
+    const { tracks, artists } = await fetchTopData();
 
-    displayTopTracks(topTracks);
-    displayTopArtists(topArtists);
+    displayTopTracks(tracks);
+    displayTopArtists(artists);
     renderPlaylistEmbed();
   } catch (error) {
     console.error('Erro ao buscar dados:', error);
-    const tracksList = document.getElementById('tracksList');
-    const artistsList = document.getElementById('artistsList');
-    tracksList.innerHTML = '<li>Erro ao carregar músicas. Tente novamente.</li>';
-    artistsList.innerHTML = '<li>Erro ao carregar artistas. Tente novamente.</li>';
+    document.getElementById('tracksList').innerHTML = '<li>Erro ao carregar músicas. Tente novamente.</li>';
+    document.getElementById('artistsList').innerHTML = '<li>Erro ao carregar artistas. Tente novamente.</li>';
   }
 }
 
